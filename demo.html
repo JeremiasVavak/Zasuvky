@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script> 
     <script>
         /*vytvoreni objektu*/
-        client = new Paho.MQTT.Client("d57a0d1c39d54550b147b58411d86743.s2.eu.hivemq.cloud", 8884, "53c3b579ca4c");
+        client = new Paho.MQTT.Client("d57a0d1c39d54550b147b58411d86743.s2.eu.hivemq.cloud", 8884, "7d1c6d4e");
 
         client.connect({
             onSuccess: onConnect,
@@ -24,7 +24,8 @@
             console.log("onConnect");
 
             client.onMessageArrived = onMessageArrived;
-            client.subscribe("bridge/temperature");
+            client.subscribe("devices/netio/messages/events/");
+            client.subscribe("devices/papago/")
         }
 
         function onMessageArrived(message) {
@@ -36,7 +37,7 @@
 
         function sendMessage(){
             message = new Paho.MQTT.Message(document.getElementById("payload").value);
-            message.destinationName = "/row/6/text";
+            message.destinationName = "/row/5/text";
             client.send(message);
 
         }
